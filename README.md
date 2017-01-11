@@ -2,6 +2,7 @@
 这是一个express 小应用
 
 $ npm install
+
 $ npm start
 
 
