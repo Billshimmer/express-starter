@@ -17,12 +17,17 @@
       密码: <input type="password" id='password'/>
     </div>
     <button type="button" onclick="login();">登陆</button>
+    <button type="button" onclick="register();">注册</button>
   </body>
   <script type="text/javascript">
     function login(){
       var user = {};
       user.username = $('#username').val();
       user.password = $('#password').val();
+      if(!(user.username.trim()) || !(user.password.trim())){
+        alert('请输入正确的用户名和密码');
+        return;
+      }
       $.ajax({
         url:'/login',
         type:'POST',
@@ -39,6 +44,9 @@
           }
         }
       });
+    }
+    function register(){
+      location.href='register';
     }
   </script>
 </html>
