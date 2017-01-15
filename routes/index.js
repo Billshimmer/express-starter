@@ -5,7 +5,7 @@ var events = require('events');
 var util = require('util');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { name: 'nick' });
+  res.render('login', { name: 'nick' });
   process.nextTick(function () {
     setTimeout(function () {
       console.log('TimeOut');

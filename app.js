@@ -6,14 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-global.db = mongoose.connect('mongodb://127.0.0.1:27017/test1')
+global.db = mongoose.connect('mongodb://127.0.0.1:27017/test2')
 
-db.connection.on('error', function () {
-  console.log('----连接数据库失败----');
-})
-db.connection.on('open', function () {
-  console.log('----连接数据库成功----');
-})
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -52,5 +46,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+console.log(typeof require('./routes'));
 
 module.exports = app;
