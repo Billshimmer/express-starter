@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head><title>ejs example</title></head>
-  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
-  <script src="/javascripts/jquery-2.1.1.min.js" type="text/javascript"></script>
-  <script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
-  <body>
-    <h1>注册页面</h1>
-    <div>
-      <p>欢迎来到注册页面</p>
-    </div>
-    <div>
-      用户名: <input type="text" id='username'/>
-    </div>
-    <div>
-      密码: <input type="password" id='password'/>
-    </div>
-    <div>
-      重新输入密码: <input type="password" id='verify-password'/>
-    </div>
-    <button type="button" onclick="register();">注册</button>
-  </body>
-  <script type="text/javascript">
-    function register(){
-      var user = {};
-      user.username = $('#username').val();
-      user.password = $('#password').val();
-      user.verifyPassword = $('#verify-password').val();
-      if(!user.username.trim() || user.password !== user.verifyPassword){
-        alert('用户名不能为空，且请输入两次相同的密码。')
-        return;
-      }
-      for(var i in user){
-        console.log(i+':'+user[i]);
-      }
-      // $.ajax({
-      //   url:'/register',
-      //   type:'POST',
-      //   data:user,
-      //   success: function(data,status){
-      //     if(status == 'success'){
-      //         location.href='/';
-      //     }
-      //   },
-      //   error: function(data,status){
-      //     if(status == "error"){
-      //         location.href='/error'
-      //     }
-      //   }
-      // });
+
+<head>
+  <title>ejs example</title>
+</head>
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="/javascripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
+
+<body>
+  <h1>注册页面</h1>
+  <div>
+    <p>欢迎来到注册页面</p>
+  </div>
+  <div>
+    用户名: <input type="text" id='username' />
+  </div>
+  <div>
+    密码: <input type="password" id='password' />
+  </div>
+  <div>
+    重新输入密码: <input type="password" id='verify-password' />
+  </div>
+  <button type="button" onclick="register();">注册</button>
+</body>
+<script type="text/javascript">
+  function register() {
+    var user = {};
+    user.username = $('#username').val();
+    user.password = $('#password').val();
+    user.verifyPassword = $('#verify-password').val();
+    if (!user.username.trim() || user.password !== user.verifyPassword) {
+      alert('用户名不能为空，且请输入两次相同的密码。')
+      return;
     }
-  </script>
+    for (var i in user) {
+      console.log(i + ':' + user[i]);
+    }
+    // $.ajax({
+    //   url:'/register',
+    //   type:'POST',
+    //   data:user,
+    //   success: function(data,status){
+    //     if(status == 'success'){
+    //         location.href='/';
+    //     }
+    //   },
+    //   error: function(data,status){
+    //     if(status == "error"){
+    //         location.href='/error'
+    //     }
+    //   }
+    // });
+  }
+</script>
+
 </html>

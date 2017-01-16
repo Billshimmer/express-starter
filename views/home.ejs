@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head><title>7-11 store</title></head>
-  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
-  <script src="/javascripts/jquery-2.1.1.min.js" type="text/javascript"></script>
-  <script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
-  <body>
-    <h1>购物中心</h1>
-    <div>
-      <p id='title'>Welcome</p>
-      <p>it is a supermarket</p>
-    </div>
-    <div>
-      商品名称：香蕉
-    </div>
-    <div>
-      商品价格：100块/斤
-    </div>
-    <button type="button" onclick="addcommodity();">加入购物车</button>
-  </body>
 
-  <script type="text/javascript">
-    (function(){
-      var user = JSON.parse(localStorage.getItem('user'));
-      $('#title').text('Welcome ' + user.username);
-    })();
-  </script>
-  <script type="text/javascript">
-    function addcommodity(){
-      console.log(user.username);
-      console.log('加入商品成功');
-    }
-  </script>
+<head>
+  <title>7-11 store</title>
+</head>
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="/javascripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
+
+<body>
+  <h1>购物中心</h1>
+  <div>
+    <p id='title'>Welcome</p>
+    <p>it is a supermarket</p>
+  </div>
+  <div>
+    商品名称：香蕉
+  </div>
+  <div>
+    商品价格：100块/斤
+  </div>
+  <button type="button" onclick="addcommodity();">加入购物车</button>
+</body>
+
+<script type="text/javascript">
+  (function() {
+    var user = JSON.parse(localStorage.getItem('user'));
+    $('#title').text('Welcome ' + user.username);
+  })();
+</script>
+<script type="text/javascript">
+  function addcommodity() {
+    console.log(user.username);
+    console.log('加入商品成功');
+  }
+</script>
+
 </html>
