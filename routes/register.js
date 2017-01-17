@@ -7,6 +7,6 @@ module.exports = function (app) {
     res.render('register');
   });
   app.post('/register', function (req, res, next) {
-    res.send(200);
+    res.sendStatus(200);
   });
 };

@@ -22,10 +22,13 @@ module.exports = function (app) {
     // pro.on('data', function (data) { console.log(data) });
     // pro.emit('data', '事件触发');
   });
+  app.post('/', function (req, res) {
+    res.sendStatus(200);
+  });
   app.get('/login', function (req, res) {
     res.render('login');
   })
   app.post('/login', function (req, res) {
-    res.send(200);
+    res.sendStatus(200);
   });
 };
