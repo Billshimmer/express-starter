@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+  <script src="/javascripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+  <script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h1>购物中心</h1>
+  <div>
+    <p id='title'>Welcome</p>
+    <p>it is a supermarket</p>
+  </div>
+  <ul id='commoditys'>
+    <% commoditys.forEach(function(commodity){ %>
+      <li>
+        <div>商品名称:<%= commodity.name %></div>
+        <div>商品价格:<%= commodity.price %>元/斤</div>
+      </li>
+    <% })%>
+  </ul>
+</body>
+</html>
