@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-global.db = mongoose.connect('mongodb://127.0.0.1:27017/test2')
+global.db = mongoose.connect('mongodb://127.0.0.1:27017/test1')
 
 
 var app = express();
