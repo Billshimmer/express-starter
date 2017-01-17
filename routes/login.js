@@ -5,6 +5,10 @@ var util = require('util');
 /* GET login page. */
 module.exports = function (app) {
   app.route('/')
+    .all(function(req, res, next){
+      console.log('登陆页面');
+      next();
+    })
     .get(function (req, res, next) {
       res.render('login');
       // process.nextTick(function () {
@@ -24,7 +28,7 @@ module.exports = function (app) {
       // pro.emit('data', '事件触发');
     })
     .post(function (req, res, next) {
-      res.send(200);
+      res.sendStatus(200);
     })
 
   app.route('/login')
@@ -32,6 +36,6 @@ module.exports = function (app) {
       res.render('login');
     })
     .post(function (req, res, next) {
-      res.send(200);
+      res.sendStatus(200);
     })
 };
