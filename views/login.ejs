@@ -28,7 +28,7 @@
     user.username = $('#username').val();
     user.password = $('#password').val();
     if (!(user.username.trim()) || !(user.password.trim())) {
-      alert('请输入正确的用户名和密码');
+      alert('用户名和密码都不能为空');
       return;
     }
     $.ajax({

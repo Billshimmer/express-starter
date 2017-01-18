@@ -5,9 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var connection = mongoose.connection;
 
-global.db = mongoose.connect('mongodb://127.0.0.1:27017/test1')
-
+//mongodb connection and Curd
+global.dbhelper = require('./common/dbHelper');
+global.db = mongoose.connect('mongodb://127.0.0.1:27017/test1');
+connection.on('error', function (error) {
+  console.log('mongodb connection error');
+});
+connection.once('open', function () {
+  console.log('mongodb connection success');
+});
 
 var app = express();
 
@@ -15,6 +24,13 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// session set
+app.use(session({
+  secret: "shimmer.secret",
+  cookie: { maxAge: 30 * 86400 * 1000 },
+  resave: true,
+  saveUninitialized: true
+}));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -26,14 +42,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./routes')(app);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

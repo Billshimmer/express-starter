@@ -28,6 +28,7 @@ module.exports = function (app) {
       // pro.emit('data', '事件触发');
     })
     .post(function (req, res, next) {
+      //todo check and return
       res.sendStatus(200);
     })
 
