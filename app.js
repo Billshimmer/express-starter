@@ -9,7 +9,7 @@ var session = require('express-session');
 var connection = mongoose.connection;
 
 //mongodb connection and Curd
-global.dbhelper = require('./common/dbHelper');
+global.dbHelper = require('./common/dbHelper.js');
 global.db = mongoose.connect('mongodb://127.0.0.1:27017/test1');
 connection.on('error', function (error) {
   console.log('mongodb connection error');

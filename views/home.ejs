@@ -30,6 +30,7 @@
 </script>
 <script type="text/javascript">
   function addcommodity() {
+    var user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
     console.log('加入商品成功');
   }
