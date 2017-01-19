@@ -15,7 +15,7 @@
     <div>商品名称: <input type="text" id='name' name='commodity' /></div>
     <div>商品价格: <input type="text" id='price' name='commodity' /></div>
     <div>商品数量: <input type="text" id='number' name='commodity'/></div>
-    <div>商品图片: <input type="file" id='pic' name='commodity' /></div>
+    <div>商品图片: <input type="file" id='imgSrc' name='commodity' /></div>
     <button type="button" onclick="add();">添加</button>
     <button type="button" onclick="cancel();">取消</button>
 <script type="text/javascript">
@@ -48,21 +48,26 @@ function add() {
       verify = false;
     }
   })
-  $.ajax({
-    url: "/addcommodity",
-    type: "POST",
-    data: commodity,
-    success: function(data, status) {
-      if (status == "success") {
-        location.href = "/home";
+  if( verify ){
+    console.log(commodity);
+    $.ajax({
+      url: "/addcommodity",
+      type: "POST",
+      data: commodity,
+      success: function(data, status) {
+        if (status == "success") {
+          alert('添加成功!');
+        }
+      },
+      error: function(data, status) {
+        if (status == "error") {
+          location.href = "/error";
+        }
       }
-    },
-    error: function(data, status) {
-      if (status == "error") {
-        location.href = "/error";
-      }
-    }
-  });
+    });
+  } else {
+    alert('请输入正确的商品价格和商品数量');
+  }
 }
 function cancel() {
   location.href = "home";

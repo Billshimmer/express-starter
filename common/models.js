@@ -6,6 +6,7 @@ module.exports = {
   commodity: {
     name: { type: String },
     price: { type: Number },
+    number: { type: Number },
     imgSrc: { type: String },
   },
   cart: {

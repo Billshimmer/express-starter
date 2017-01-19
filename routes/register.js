@@ -12,23 +12,18 @@ module.exports = function (app) {
           User = global.dbHelper.getModel('user');
       User.findOne({ name: name }, function (error, doc) {
         if (error) {
-          req.session.error = '网络异常';
-          console.log('网络异常');
-          res.sendStatus(500);
+          res.status(500).send({message: '网络异常'});
         } else if (doc) {
-          req.session.error = '用户名已存在';
-          res.sendStatus(500);
+          res.status(400).send({message: '用户名已经存在'});
         } else {
           User.create({
             name: name,
             password: password
           }, function (error, doc) {
             if (error) {
-              res.send(500);
-              console.log(error);
+              res.status(500).send({message: '网络异常'});
             } else {
-              req.session.error = '用户名创建成功！';
-              res.send(200);
+              res.status(200).send({message: '用户名创建成功！'});
             }
           })
         }

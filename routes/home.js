@@ -21,6 +21,19 @@ module.exports = function (app) {
       res.render('addcommodity');
     })
     .post(function (req, res) {
-      res.sendStatus(200);
+      var query = { name: req.body.name };
+      var Commodity = global.dbHelper.getModel('commodity');
+      // Commodity.findOne({ name: newCom.name }, function (error, doc) {
+      //   if (error) {
+      //     res.sendStatus(500);
+      //     console.log('error');
+      //   } else if (doc) {
+
+      //   }
+      // })
+      Commodity.findOneAndUpdate(query, req.body, { upsert: true }, function (err, doc) {
+        if (err) return res.send(500, { error: err });
+        return res.send("succesfully saved");
+      });
     })
 }
