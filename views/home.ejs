@@ -20,7 +20,8 @@
   <div>
     商品价格：100块/斤
   </div>
-  <button type="button" onclick="addcommodity();">加入购物车</button>
+  <button type="button" onclick="addcart();">加入购物车</button>
+  <button type="button" onclick="addcommodity();">添加商品</button>
 
 <script type="text/javascript">
   (function() {
@@ -29,10 +30,13 @@
   })();
 </script>
 <script type="text/javascript">
-  function addcommodity() {
+  function addcart() {
     var user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
-    console.log('加入商品成功');
+    console.log('购物车加入商品成功');
+  }
+  function addcommodity(){
+    location.href = 'addcommodity';
   }
 </script>
 </body>

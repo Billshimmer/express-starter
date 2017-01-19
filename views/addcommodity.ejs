@@ -12,18 +12,61 @@
       <p>Welcome </p>
       <p>it is a supermarket</p>
     </div>
-    <div>
-      商品名称: <input type="text" id='commodity-name'/>
-    </div>
-    <div>
-      商品价格: <input type="text" id='commodity-price'/>
-    </div>
-    <div>
-      商品图片: <input type="file" id='commodity-pic'/>
-    </div>
+    <div>商品名称: <input type="text" id='name' name='commodity' /></div>
+    <div>商品价格: <input type="text" id='price' name='commodity' /></div>
+    <div>商品数量: <input type="text" id='number' name='commodity'/></div>
+    <div>商品图片: <input type="file" id='pic' name='commodity' /></div>
     <button type="button" onclick="add();">添加</button>
     <button type="button" onclick="cancel();">取消</button>
-  <script type="text/javascript">
-  </script>
+<script type="text/javascript">
+function add() {
+  var commodity = {};
+  var verify = true;
+  var matchFunc = function(value, id){
+    switch(id){
+      case 'name':
+        if(/^[\u4e00-\u9fa5_a-zA-Z0-9]+$/.test(value)){return true};
+        return false;
+        break;
+      case 'price':
+        if(/^(0|\d+)$/.test(value)){return true};
+        return false;
+        break;
+      case 'number':
+        if(/^(0|\d+)$/.test(value)){return true};
+        return false;
+        break;
+      default:
+        return true
+    }
+    return true
+  };
+  $("input[name='commodity']").each(function(index, item){
+    if(matchFunc(item.value, item.id)){
+      commodity[item.id] = item.value;
+    } else{
+      verify = false;
+    }
+  })
+  $.ajax({
+    url: "/addcommodity",
+    type: "POST",
+    data: commodity,
+    success: function(data, status) {
+      if (status == "success") {
+        location.href = "/home";
+      }
+    },
+    error: function(data, status) {
+      if (status == "error") {
+        location.href = "/error";
+      }
+    }
+  });
+}
+function cancel() {
+  location.href = "home";
+}
+</script>
 </body>
 </html>
