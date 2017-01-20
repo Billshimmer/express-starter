@@ -14,15 +14,19 @@
     <p id='title'>Welcome</p>
     <p>it is a supermarket</p>
   </div>
-  <div>
-    商品名称：香蕉
+  <div class='add-commodity'><button type="button" onclick="addcommodity();">添加商品</button></div>
+  <div class='commodity'>
+    <% commoditys.forEach(function(commodity){ %>
+      <div>商品名称：<%= commodity.name %></div>
+      <div>商品价格：<%= commodity.price %>元/千克</div>
+      <% if (commodity.imgSrc) { %>
+        <img src="<%= commodity.imgSrc %>"/>
+      <% } else { %>
+        <img src="/images/xmsz-2.jpg" alt="默认图片"/>
+      <% } %>
+      <button type="button" onclick="addcart();">加入购物车</button>
+    <% })%>
   </div>
-  <div>
-    商品价格：100块/斤
-  </div>
-  <button type="button" onclick="addcart();">加入购物车</button>
-  <button type="button" onclick="addcommodity();">添加商品</button>
-
 <script type="text/javascript">
   (function() {
     var user = JSON.parse(localStorage.getItem('user'));
@@ -34,6 +38,19 @@
     var user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
     console.log('购物车加入商品成功');
+    // $.ajax({
+    //   url: '',
+    //   type: 'POST',
+    //   data: data,
+    //   success: function(data, status){
+
+    //   },
+    //   error: function(data, status) {
+    //     if (status == "error") {
+    //       alert('加入购物车失败');
+    //     }
+    //   },
+    // })
   }
   function addcommodity(){
     location.href = 'addcommodity';
