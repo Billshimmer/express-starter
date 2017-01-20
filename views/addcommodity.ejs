@@ -70,7 +70,9 @@ function add() {
   }
 }
 function cancel() {
-  location.href = "home";
+  $("input[name='commodity']").each(function(index, item){
+    item.value = '';
+  })
 }
 </script>
 </body>
