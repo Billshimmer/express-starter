@@ -57,6 +57,7 @@ function add() {
       success: function(data, status) {
         if (status == "success") {
           alert('添加成功!');
+          cancel();
         }
       },
       error: function(data, status) {
