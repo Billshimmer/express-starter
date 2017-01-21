@@ -1,26 +1,18 @@
 module.exports = function (app) {
   app.route('/home')
     .get(function (req, res) {
-      // res.render('home', { user : req.body });
-      // var Commodity = global.dbHelper.getModel('commodity');
-      // var commoditys = [];
-      // Commodity.find({}, function (error, doc) {
-      //   if (error) {
-      //     res.sendStatus(500);
-      //     console.log('error');
-      //   } else if (doc.length !== 0) {
-      //     commoditys = doc;
-      //     console.log('no commodity');
-      //     res.render('home', { commoditys: commoditys });
-      //   }
-      // })
       var commoditys = [],
+          cartNumber = 0,
+          Cart = global.dbHelper.getModel('cart'),
           Commodity = global.dbHelper.getModel('commodity');
-      Commodity.find({}, function(err, doc){
+      Commodity.find({}, function (err, doc) {
         if (err) return res.send(500, { error: err });
         if (doc) {
-          commoditys = doc;
-          res.render('home', {commoditys: commoditys});
+          Cart.find({ uId: req.session.user._id, cStatus: false }, function (err, Cdoc) {
+            cartNumber = Cdoc.length;
+            commoditys = doc;
+            res.render('home', { commoditys: commoditys, user: req.session.user, cartNumber: cartNumber });
+          })
         }
       })
     });
