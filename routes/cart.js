@@ -1,4 +1,5 @@
 module.exports = function(app) {
+  //获取购物车
   app.route("/cart")
     .get(function(req, res) {
       var Cart = global.dbHelper.getModel("cart");
@@ -11,6 +12,7 @@ module.exports = function(app) {
           if (error) {
             res.status(500).send({message: "网络错误"});
           } else {
+            console.log(doc);
             res.render("cart", {carts: doc});
           }
         });
@@ -80,7 +82,7 @@ module.exports = function(app) {
   app.route("/cart/clear")
     .post(function(req, res) {
       Cart = global.dbHelper.getModel("cart");
-      Cart.findOneupdate(
+      Cart.findOneAndUpdate(
         {_id: req.body.id},
         {$set: {cQuantity: req.body.number, cStatus: true}},
         function(err, doc) {
