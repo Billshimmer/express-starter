@@ -59,7 +59,8 @@ function deleteCart(event) {
   });
 }
 function clearAll(event) {
-  var length = $("cart").length;
+  var length = $(".cart").length;
+  console.log(length);
   $(".cart").each(function(index, item) {
     var self = $(this),
         price = self.attr("data-price"),
@@ -71,8 +72,8 @@ function clearAll(event) {
       type: "POST",
       data: data,
       success: function(data, status) {
-        if (length == 0) {
-          alert(结算成功);
+        if (length == 1) {
+          window.location.reload();
         } else {
           length--;
         }

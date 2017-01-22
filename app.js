@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var helmet = require('helmet')
 var connection = mongoose.connection;
 
 //mongodb connection and Curd
@@ -19,6 +20,9 @@ connection.once('open', function () {
 });
 
 var app = express();
+
+//Use Helmet for security
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
