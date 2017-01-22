@@ -14,9 +14,8 @@
     <p>it is a supermarket</p>
   </div>
   <% if(carts.length !== 0 ){ %>
-    <ul id='carts' style="display: flex;">
+    <div id='carts' style="display: flex;">
       <% carts.forEach(function(cart, index){ %>
-        <li>
           <div>
             <% if (cart.imgSrc) { %>
               <img src="<%= commodity.imgSrc %>"/>
@@ -31,7 +30,6 @@
             <input type='text' class='cart' data-price='<%= cart.cPrice%>' data-id='<%= cart._id%>' value="<%= cart.cQuantity %>" />
           </div>
           <button type="button" data-id="<%= carts[index]._id %>" onclick='deleteCart(event);'>删除</button>
-        </li>
       <% })%>
     </ul>
     <button id='clear-cart' type="button" onclick='clearAll(event);'>结算购物车</button>
@@ -60,7 +58,6 @@ function deleteCart(event) {
 }
 function clearAll(event) {
   var length = $(".cart").length;
-  console.log(length);
   $(".cart").each(function(index, item) {
     var self = $(this),
         price = self.attr("data-price"),
