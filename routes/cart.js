@@ -29,7 +29,7 @@ module.exports = function(app) {
         req.session.error = "用户已过期，请重新登录:";
         res.redirect("/login");
       } else {
-        Cart.findOne({cId: cId, uId: req.session.user._id}, function(error, doc) {
+        Cart.findOne({cId: cId, uId: req.session.user._id, cStatus: false}, function(error, doc) {
           //商品已存在，数量+1
           if (doc) {
             Cart.update(

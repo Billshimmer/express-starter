@@ -41,43 +41,47 @@
 <script type="text/javascript">
 var sum = 0;
 
-$(function() {
-});
+$(function() {});
 
-function deleteCart(event){
-  var id = event.target.getAttribute('data-id');
+function deleteCart(event) {
+  var id = event.target.getAttribute("data-id");
   $.ajax({
-    url: '/deleteCart/' + id,
-    type: 'POST',
+    url: "/deleteCart/" + id,
+    type: "POST",
     data: {},
-    success:function(data,status){
-      alert('删除商品成功');
-      if(status == 'success'){
-        location.href = 'cart';
+    success: function(data, status) {
+      alert("删除商品成功");
+      if (status == "success") {
+        location.href = "cart";
       }
     },
-    error:function(data,status){
-    }
+    error: function(data, status) {}
   });
 }
-function clearAll(event){
-  $('.cart').each(function(index, item){
+function clearAll(event) {
+  var length = $("cart").length;
+  $(".cart").each(function(index, item) {
     var self = $(this),
-        price = self.attr('data-price'),
+        price = self.attr("data-price"),
         number = self.val(),
-        id = self.attr('data-id'),
-        data = { number : number, id: id };
+        id = self.attr("data-id"),
+        data = {number: number, id: id};
     $.ajax({
-      url: '/cart/clear',
-      type: 'POST',
+      url: "/cart/clear",
+      type: "POST",
       data: data,
-      success: function(data, status){
+      success: function(data, status) {
+        if (length == 0) {
+          alert(结算成功);
+        } else {
+          length--;
+        }
       },
-      error: function(data, status){
-      }
-    })
-  })
+      error: function(data, status) {}
+    });
+  });
 }
+
 </script>
 </body>
 </html>
