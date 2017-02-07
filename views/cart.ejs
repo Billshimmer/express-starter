@@ -14,8 +14,9 @@
     <p>it is a supermarket</p>
   </div>
   <% if(carts.length !== 0 ){ %>
-    <div id='carts' style="display: flex;">
+    <div id='carts' style="display: flex;flex-wrap: wrap;">
       <% carts.forEach(function(cart, index){ %>
+        <div style="display: flex;">
           <div>
             <% if (cart.imgSrc) { %>
               <img src="<%= commodity.imgSrc %>"/>
@@ -23,15 +24,18 @@
               <img src="/images/xmsz-1.jpg" alt="默认图片"/>
             <% } %>
           </div>
-          <div>商品名称:<%= cart.cName %></div>
-          <div>商品价格:<%= cart.cPrice %></div>
           <div>
-            商品数量:
-            <input type='text' class='cart' data-price='<%= cart.cPrice%>' data-id='<%= cart._id%>' value="<%= cart.cQuantity %>" />
+            <div>商品名称:<%= cart.cName %></div>
+            <div>商品价格:<%= cart.cPrice %></div>
+            <div>
+              商品数量:
+              <input type='text' class='cart' data-price='<%= cart.cPrice%>' data-id='<%= cart._id%>' value="<%= cart.cQuantity %>" />
+            </div>
+            <button type="button" data-id="<%= carts[index]._id %>" onclick='deleteCart(event);'>删除</button>
           </div>
-          <button type="button" data-id="<%= carts[index]._id %>" onclick='deleteCart(event);'>删除</button>
+        </div>
       <% })%>
-    </ul>
+    </div>
     <button id='clear-cart' type="button" onclick='clearAll(event);'>结算购物车</button>
   <% } else { %>
     <p>当前购物车为空，不需要结算。</p>
