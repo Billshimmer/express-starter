@@ -119,9 +119,9 @@ var sum = 0;
 tamount();
 
 //改变购买商品数量
-function changeCartNumber(event){
+function changeCartNumber(event) {
   var number = event.target.value;
-  if(/^(0|\d+)$/.test(number)){
+  if (/^(0|\d+)$/.test(number)) {
     tamount();
   } else {
     return false;
@@ -146,17 +146,17 @@ function deleteCart(event) {
 }
 
 //结算出总价
-function tamount(){
+function tamount() {
   var sum = 0;
   $(".cart").each(function(index, item) {
     var self = $(this),
-        price = self.attr("data-price"),
-        number = self.val(),
-        id = self.attr("data-id"),
-        data = {number: number, id: id};
-    sum += price*number;
+      price = self.attr("data-price"),
+      number = self.val(),
+      id = self.attr("data-id"),
+      data = {number: number, id: id};
+    sum += price * number;
   });
-  $('#money').html("￥"+sum);
+  $("#money").html("￥" + sum);
   return sum;
 }
 
@@ -165,17 +165,17 @@ function clearAll(event) {
   var length = $(".cart").length;
   $(".cart").each(function(index, item) {
     var self = $(this),
-        price = self.attr("data-price"),
-        number = self.val(),
-        id = self.attr("data-id"),
-        data = {number: number, id: id};
+      price = self.attr("data-price"),
+      number = self.val(),
+      id = self.attr("data-id"),
+      data = {number: number, id: id};
     $.ajax({
       url: "/cart/clear",
       type: "POST",
       data: data,
       success: function(data, status) {
         if (length == 1) {
-          alert("所有商品价格总计:￥"+tamount()+',欢迎下次光临');
+          alert("所有商品价格总计:￥" + tamount() + ",欢迎下次光临");
           window.location.reload();
         } else {
           length--;
@@ -185,6 +185,7 @@ function clearAll(event) {
     });
   });
 }
+
 
 </script>
 </body>
