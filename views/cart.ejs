@@ -8,38 +8,6 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>结算中心</h1>
-  <div>
-    <p id='title'>Welcome</p>
-    <p>it is a supermarket</p>
-  </div>
-  <% if(carts.length !== 0 ){ %>
-    <div id='carts' style="display: flex;flex-wrap: wrap;">
-      <% carts.forEach(function(cart, index){ %>
-        <div style="display: flex;">
-          <div>
-            <% if (cart.imgSrc) { %>
-              <img src="<%= commodity.imgSrc %>"/>
-            <% } else { %>
-              <img src="/images/xmsz-1.jpg" alt="默认图片"/>
-            <% } %>
-          </div>
-          <div>
-            <div>商品名称:<%= cart.cName %></div>
-            <div>商品价格:<%= cart.cPrice %></div>
-            <div>
-              商品数量:
-              <input type='text' class='cart' data-price='<%= cart.cPrice%>' data-id='<%= cart._id%>' value="<%= cart.cQuantity %>" />
-            </div>
-            <button type="button" data-id="<%= carts[index]._id %>" onclick='deleteCart(event);'>删除</button>
-          </div>
-        </div>
-      <% })%>
-    </div>
-    <button id='clear-cart' type="button" onclick='clearAll(event);'>结算购物车</button>
-  <% } else { %>
-    <p>当前购物车为空，不需要结算。</p>
-  <% } %>
   <div style="margin:50px auto;width: 900px;">
     <div >
         <div>
@@ -79,16 +47,17 @@
                             <span><%=carts[i].cPrice%></span>
                         </div>
                         <div class="li-quantity">
-                            <input class='cart' 
-                                   style="width: 40px;"  
-                                   type="text" 
-                                   data-price='<%= carts[i].cPrice%>' 
-                                   data-id='<%= carts[i]._id%>' 
-                                   value="<%= carts[i].cQuantity %>" 
-                                   oninput="changeCartNumber(event);"
-                                   onkeyup="value=value.replace(/[^\d]/g,'')/>
+                            <input
+                              class='cart'
+                              style="width: 40px; margin-right: 65px;"
+                              type="text"
+                              data-price='<%= carts[i].cPrice%>'
+                              data-id='<%= carts[i]._id%>'
+                              value="<%= carts[i].cQuantity %>"
+                              oninput="changeCartNumber(event);"
+                              onkeyup="value=value.replace(/[^\d]/g,'');" />
                         </div>
-                        <div class="li-del" >
+                        <div class="li-del">
                             <a data-id="<%= carts[i]._id %>" onclick='deleteCart(event);' class="btn btn-primary btn-xs">删除</a>
                         </div>
                     </li>
@@ -114,9 +83,9 @@
         list-style-type: none;
         margin-left: -30px;
         width: 870px;
+        display: flex;
     }
     .cart-body ul li div{
-        float: left;
         height: 80px;
     }
     .li-checkbox input{
@@ -136,7 +105,6 @@
     }
     .li-quantity{
         margin: 20px 0 0 130px;
-        width: 100px;
     }
     .li-del{
         margin: 20px 0 0 30px;
@@ -148,6 +116,7 @@
 </style>
 <script type="text/javascript">
 var sum = 0;
+tamount();
 
 //改变购买商品数量
 function changeCartNumber(event){
@@ -188,6 +157,7 @@ function tamount(){
     sum += price*number;
   });
   $('#money').html("￥"+sum);
+  return sum;
 }
 
 //清空购物车
@@ -205,6 +175,7 @@ function clearAll(event) {
       data: data,
       success: function(data, status) {
         if (length == 1) {
+          alert("所有商品价格总计:￥"+tamount()+',欢迎下次光临');
           window.location.reload();
         } else {
           length--;
