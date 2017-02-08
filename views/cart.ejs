@@ -40,11 +40,126 @@
   <% } else { %>
     <p>当前购物车为空，不需要结算。</p>
   <% } %>
+  <div style="margin:50px auto;width: 900px;">
+    <div >
+        <div>
+            <div style="float:right;">
+                <a class="btn  btn-xs btn-success" href="home" style="margin-right: 35px;">商品页</a>
+                <a class="btn btn-xs btn-info" href="/">退 出</a>
+            </div>
+            <h2>购物车</h2>
+            <hr>
+        </div>
+        <div >
+            <div class="cart-heading" >
+                <div style="padding: 10px 0 0 10px">
+                    <span style="margin-right: 180px;padding-left: 23px;">商品名称</span>
+                    <span style="margin-right: 198px;padding-left: 176px;">价格</span>
+                    <span style="margin-right: 80px;">数量</span>
+                    <span style="padding-left: 16px;">操作</span>
+                </div>
+            </div>
+            <div class="cart-body" >
+                <ul >
+                    <%for(var i in carts){ if(!carts[i].cId)continue%>
+                    <li>
+                        <div class="li-img">
+                            <a>
+                                <% if (carts[i].imgSrc) { %>
+                                  <img class="li-img a img"  src="<%= carts.imgSrc %>"/>
+                                <% } else { %>
+                                  <img class="li-img a img"  src="/images/xmsz-2.jpg" alt="默认图片"/>
+                                <% } %>
+                            </a>
+                        </div>
+                        <div class="li-content">
+                            <a><%=carts[i].cName%></a>
+                        </div>
+                        <div class="li-price" >
+                            <span><%=carts[i].cPrice%></span>
+                        </div>
+                        <div class="li-quantity">
+                            <input class='cart' 
+                                   style="width: 40px;"  
+                                   type="text" 
+                                   data-price='<%= carts[i].cPrice%>' 
+                                   data-id='<%= carts[i]._id%>' 
+                                   value="<%= carts[i].cQuantity %>" 
+                                   oninput="changeCartNumber(event);"
+                                   onkeyup="value=value.replace(/[^\d]/g,'')/>
+                        </div>
+                        <div class="li-del" >
+                            <a data-id="<%= carts[i]._id %>" onclick='deleteCart(event);' class="btn btn-primary btn-xs">删除</a>
+                        </div>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+            <div style="float: right;height: 35px;width:330px;">
+                总计：<span id="money" style="color: red;font-size: 25px">￥0.00</span>
+                <input type="button" style="width: 130px;float:right;"  class="btn btn-success" onclick="Clearing();" value="结 算" />
+            </div>
+        </div>
+    </div>
+  </div>
+<style type="text/css">
+    .cart-heading{
+        height: 40px;
+        background-color: #EFEDED;
+    }
+    .cart-body{
+        background-color: #F7F7F7;
+    }
+    .cart-body ul li {
+        list-style-type: none;
+        margin-left: -30px;
+        width: 870px;
+    }
+    .cart-body ul li div{
+        float: left;
+        height: 80px;
+    }
+    .li-checkbox input{
+        margin: 20px 5px 0 0;
+    }
+    .li-img a img{
+        width: 40px;
+        height: 50px;
+    }
+    .li-content{
+        margin: 20px 0 0 30px;
+        width: 280px;
+    }
+    .li-price{
+        margin: 20px 0 0 60px;
+        width: 100px;
+    }
+    .li-quantity{
+        margin: 20px 0 0 130px;
+        width: 100px;
+    }
+    .li-del{
+        margin: 20px 0 0 30px;
+        width: 50px;
+    }
+    .li-img{
+        margin: 0 0 0 10px;
+    }
+</style>
 <script type="text/javascript">
 var sum = 0;
 
-$(function() {});
+//改变购买商品数量
+function changeCartNumber(event){
+  var number = event.target.value;
+  if(/^(0|\d+)$/.test(number)){
+    tamount();
+  } else {
+    return false;
+  }
+}
 
+//删除商品
 function deleteCart(event) {
   var id = event.target.getAttribute("data-id");
   $.ajax({
@@ -60,6 +175,22 @@ function deleteCart(event) {
     error: function(data, status) {}
   });
 }
+
+//结算出总价
+function tamount(){
+  var sum = 0;
+  $(".cart").each(function(index, item) {
+    var self = $(this),
+        price = self.attr("data-price"),
+        number = self.val(),
+        id = self.attr("data-id"),
+        data = {number: number, id: id};
+    sum += price*number;
+  });
+  $('#money').html("￥"+sum);
+}
+
+//清空购物车
 function clearAll(event) {
   var length = $(".cart").length;
   $(".cart").each(function(index, item) {

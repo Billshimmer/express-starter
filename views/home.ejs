@@ -9,30 +9,61 @@
 </head>
 
 <body>
-  <h1>购物中心</h1>
-  <div>
-    <p id='title'>Welcome <%= user.name %></p>
-    <p>it is a supermarket</p>
-  </div>
-  <div style="display: flex;">
-    <div class='add-commodity'><button type="button" onclick="addcommodity();">添加商品</button></div>
-    <div class='go-cart' style="margin-left: 20px;"><button type="button" onclick="goCart();">购物车</button></div>
-    <div>当前购物车商品数: <%= cartNumber %></div>
-  </div>
-  <div class='commodity' style="display: flex; flex-Direction: row; flex-wrap: wrap;">
-    <% commoditys.forEach(function(commodity, index){ %>
-      <div style="flex-Direction: column;">
-        <div>商品名称：<%= commodity.name %></div>
-        <div>商品价格：<%= commodity.price %>元/千克</div>
-        <% if (commodity.imgSrc) { %>
-          <img src="<%= commodity.imgSrc %>"/>
-        <% } else { %>
-          <img src="/images/xmsz-2.jpg" alt="默认图片"/>
-        <% } %>
-      <button style="align-self: center;" type="button" data-id="<%=commoditys[index]._id%>" onclick='addcart(event);'>加入购物车</button>
-      </div>
-    <% })%>
-  </div>
+  <div style="margin:50px auto;width: 900px;">
+    <div class="panel panel-default" >
+        <div class="panel-heading" style="height: 40px;">
+                    <div style="text-align: left">
+                        <span style="font-size:20px; font-weight:bold;">用户<%= user.name %>,你好 当前购物车商品数: <%= cartNumber %></span>
+                        <div style="float: right;">
+                            <a class="btn  btn-xs btn-success" onclick="addcommodity();" style="margin-right: 35px;">添加商品</a>
+                            <a class="btn  btn-xs btn-success" onclick="goCart();" style="margin-right: 35px;">购物车</a>
+                            <a class="btn btn-xs btn-info" href="/login">退 出</a>
+                        </div>
+                    </div>
+                </div>
+        <div class="panel-body">
+            <ul class="spys" >
+                <%for(var i in commoditys){ if(!commoditys[i].name)continue;%>
+                    <li class="spys li">
+                        <div >
+                            <% if (commoditys[i].imgSrc) { %>
+                              <img width="80" height="100"  src="<%= commodity.imgSrc %>"/>
+                            <% } else { %>
+                              <img width="80" height="100"  src="/images/xmsz-2.jpg" alt="默认图片"/>
+                            <% } %>
+                        </div>
+                        <div >
+                            <a ><%=commoditys[i].name%></a>
+                            <strong style="color:red;" >￥<%=commoditys[i].price%></strong>
+                        </div>
+                        <div >
+                            <a class="btn btn-success" style="width: 120px;"  data-id="<%=commoditys[i]._id%>" onclick='addcart(event);'>加入购物车</a>
+                        </div>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+  .panel-title{
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .spys{
+      list-style-type: none;
+  }
+  .spys li{
+      float: left;
+      margin: 10px 10px;
+      width: 180px;
+      height: 230px;
+  }
+  .spys li div strong{
+      color: red;
+  }
+
+</style>
 <script type="text/javascript">
   function addcart(e) {
     var id= e.target.getAttribute('data-id');

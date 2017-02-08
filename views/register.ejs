@@ -9,26 +9,52 @@
 </head>
 
 <body>
-  <h1>注册页面</h1>
-  <div>
-    <p>欢迎来到注册页面</p>
+  <div class="container web-body" style="margin-top:100px;width: 980px;">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="height: 50px;">
+                    <div class="panel-title" style="text-align: left">用户注册</div>
+                </div>
+                <div class="panel-body">
+                    <form action="#" class="form-horizontal" role="form" method="post" >
+                        <div class="form-group">
+                            <input id="username" type="text" class="form-control" name="username" placeholder="用户名" />
+                        </div>
+                        <div class="form-group">
+                            <input id="password" type="password" class="form-control" name="password"  placeholder="密码" />
+                        </div>
+                        <div class="form-group">
+                            <input id="verifyPassword" type="password" class="form-control" name="confirmpwd" placeholder="确认密码" />
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-success btn-block" onclick="register()" value="注 册" />
+                            <a href="login" class="btn btn-primary" style="float: right;margin-top: 20px;">登 陆</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-  <div>
-    用户名: <input type="text" id='username' />
-  </div>
-  <div>
-    密码: <input type="password" id='password' />
-  </div>
-  <div>
-    重新输入密码: <input type="password" id='verify-password' />
-  </div>
-  <button type="button" onclick="register();">注册</button>
+<style type="text/css">
+.panel-body{
+  padding: 30px 50px 0 50px;
+}
+.form-group{
+  margin-bottom: 35px;
+}
+.panel-title{
+  font-size: 24px;
+  font-weight: bold;
+}
+</style>
 <script type="text/javascript">
 function register() {
   var user = {};
   user.username = $("#username").val();
   user.password = $("#password").val();
-  user.verifyPassword = $("#verify-password").val();
+  user.verifyPassword = $("#verifyPassword").val();
   if (!user.username.trim() || user.password !== user.verifyPassword) {
     alert("用户名不能为空，且请输入两次相同的密码。");
     return;
