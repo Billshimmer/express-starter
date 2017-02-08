@@ -5,5 +5,4 @@
 
 ## $	npm	install
 ## $	npm	start
-
-##$	show	Application : http://localhost:3000/
+## $	show	Application : http://localhost:3000/
