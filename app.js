@@ -9,40 +9,11 @@ var session = require('express-session');
 var helmet = require('helmet')
 var connection = mongoose.connection;
 
-//mongodb connection and Curd
-global.dbHelper = require('./common/dbHelper.js');
-global.db = mongoose.connect('mongodb://127.0.0.1:27017/test1');
-connection.on('error', function (error) {
-  console.log('mongodb connection error');
-});
-connection.once('open', function () {
-  console.log('mongodb connection success');
-});
-
 var app = express();
 
-//Use Helmet for security
-app.use(helmet());
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// session set
-app.use(session({
-  secret: "shimmer.secret",
-  cookie: { maxAge: 30 * 86400 * 1000 },
-  resave: true,
-  saveUninitialized: true
-}));
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+require('./linkMongodb')(app);
+require('./connect')(app);
+require('./static-files')(app);
 require('./routes')(app);
 
 app.use(function (req, res, next) {
@@ -50,12 +21,6 @@ app.use(function (req, res, next) {
   res.locals.message = '';
   next();
 });
-// catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
 
 // error handler
 app.use(function (err, req, res, next) {
