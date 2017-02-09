@@ -17,7 +17,7 @@
                         <div style="float: right;">
                             <a class="btn  btn-xs btn-success" onclick="addcommodity();" style="margin-right: 35px;">添加商品</a>
                             <a class="btn  btn-xs btn-success" onclick="goCart();" style="margin-right: 35px;">购物车</a>
-                            <a class="btn btn-xs btn-info" href="/login">退 出</a>
+                            <a class="btn btn-xs btn-info" href="/logout">退 出</a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
 </style>
 <script type="text/javascript">
   function addcart(e) {
-    var id= e.target.getAttribute('data-id');
+    var id = e.target.getAttribute('data-id');
     $.ajax({
       url: '/addToCart/' + id,
       type: 'POST',

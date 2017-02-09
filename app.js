@@ -14,13 +14,12 @@ var app = express();
 require('./linkMongodb')(app);
 require('./connect')(app);
 require('./static-files')(app);
-require('./routes')(app);
-
 app.use(function (req, res, next) {
   res.locals.user = req.session.user;
   res.locals.message = '';
   next();
 });
+require('./routes')(app);
 
 // error handler
 app.use(function (err, req, res, next) {
