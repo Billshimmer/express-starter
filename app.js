@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var helmet = require('helmet')
 var connection = mongoose.connection;
+
 var app = express();
 
 require('./linkMongodb')(app);
