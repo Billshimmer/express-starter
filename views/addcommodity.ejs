@@ -9,7 +9,7 @@
   <body>
     <div style="margin:100px auto;width: 500px;" class="add_c">
         <h1>添加商品</h1>
-        <a class="btn  btn-xs btn-success" href="home" style="margin-left: 400px;">返回商品页</a>
+        <a class="btn  btn-xs btn-success" href="/home" style="margin-left: 400px;">返回商品页</a>
         <form action="#"  role="form" method="post" >
             <input style="margin-top: 30px;" id="name" type="text" class="form-control"  name="commodity" placeholder="商品名称" />
             <input style="margin-top: 30px;" id="price"  class="form-control" name="commodity"  placeholder="商品价格" />
@@ -59,6 +59,7 @@ function add() {
       success: function(data, status) {
         if (status == "success") {
           alert('添加成功!');
+          cancel();
         }
       },
       error: function(data, status) {
