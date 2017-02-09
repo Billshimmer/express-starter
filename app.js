@@ -4,13 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var session = require('express-session');
-var helmet = require('helmet')
-var connection = mongoose.connection;
-
 var app = express();
-
 require('./linkMongodb')(app);
 require('./connect')(app);
 require('./static-files')(app);
